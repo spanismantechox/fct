@@ -38,8 +38,8 @@ public class UsuarioController {
 	}
 	
 	
-	@GetMapping(path = "/lista", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String lista() {
+	@GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String list() {
 		return this.usuarioService.listUsuarios();
 	}
 	

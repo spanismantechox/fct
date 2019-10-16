@@ -1,7 +1,7 @@
 package com.app.fct.models;
 
 import java.util.Date;
-import java.util.List;
+
 import java.util.Set;
 
 import javax.persistence.Entity;

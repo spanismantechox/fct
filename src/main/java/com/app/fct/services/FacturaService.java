@@ -1,6 +1,5 @@
 package com.app.fct.services;
 
-
 import java.util.Optional;
 
 import org.json.JSONObject;
@@ -19,19 +18,18 @@ public class FacturaService {
 	public String crearFactura(Factura factura) {
 		JSONObject json = new JSONObject();
 
-		Optional<Restaurante> r = this.restauranteRepository.findById(factura.getIdFactura());
+		Optional<Restaurante> r = this.restauranteRepository.findById(factura.getIdRestaurante());
 
 		if (r.isPresent()) {
 			Optional<Cliente> p = this.clienteRepository.findClienteById(factura.getIdCliente());
 			if (p.isPresent()) {
-			
-				
 
-				
 				this.facturaRepository.save(factura);
 				json.put("message", "Factura creada correctamente!");
 				json.put("status:200", "OK");
 
+			} else {
+				json.put("message", "El cliente no existe");
 			}
 		} else {
 			json.put("message", "El restaurante no existe");

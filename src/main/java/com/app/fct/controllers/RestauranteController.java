@@ -29,7 +29,7 @@ public class RestauranteController {
 		return this.restauranteService.modRestaurante(restaurante);
 	}
 	
-	@GetMapping(path = "/list", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String list() {
 		return this.restauranteService.listRestaurante();
 	}

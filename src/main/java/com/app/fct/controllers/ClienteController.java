@@ -30,7 +30,7 @@ public class ClienteController {
 		return this.clienteService.modCliente(cliente);	
 	}
 	
-	@GetMapping(path = "/list", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/list",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String list() {
 		return this.clienteService.listCliente();	
 	}
