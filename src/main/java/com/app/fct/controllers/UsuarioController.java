@@ -32,13 +32,13 @@ public class UsuarioController {
 		return this.usuarioService.modUsuario(usuario);
 	}
 	
-	@GetMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String login(@RequestBody Usuario usuario) {
 		return this.usuarioService.loginUsuarios(usuario);
 	}
 	
 	
-	@GetMapping(path = "/lista", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String lista() {
 		return this.usuarioService.listUsuarios();
 	}

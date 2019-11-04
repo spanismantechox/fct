@@ -1,8 +1,11 @@
 package com.app.fct.services;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.fct.models.Restaurante;
+import com.app.fct.models.Fuente;
 import com.app.fct.models.Ingreso;
+import com.app.fct.models.RelIngreso;
 import com.app.fct.repositories.IngresoRepository;
 import com.app.fct.repositories.RestauranteRepository;
 
@@ -35,7 +40,7 @@ public class IngresoService {
 				res.getIngresos().add(ingreso);
 				this.restauranteRepository.save(res);
 				
-				json.put("message", "Ingreso añadido correctamente!");
+				json.put("message", "ok");
 				json.put("status:200", "OK");
 			} else {
 				json.put("message", "El restaurante no existe");
@@ -69,15 +74,76 @@ public class IngresoService {
 	
 	
 	public String listIngreso() {
+		JSONObject res = new JSONObject();
 		JSONArray json = new JSONArray();
-		Iterable<Ingreso> ingIt = this.ingresgoRepository.findAll();
-		Iterator<Ingreso> it = ingIt.iterator();
+		List<RelIngreso> ingreso = this.ingresgoRepository.getRestauranteIngreso();
+		Iterator<RelIngreso> it = ingreso.iterator();
+		JSONObject obj;
 		while (it.hasNext()) {
-			Ingreso ing = it.next();
-			json.put(ing.ingToJSON());
+			RelIngreso ing = it.next();
+			obj= new JSONObject();
+			obj.put("idIngreso", ing.getIdIngreso());
+			obj.put("fecha",ing.getFecha());
+			obj.put("cantidad", ing.getCantidad());
+			obj.put("fuente", ing.getFuente());
+			obj.put("nombre_restaurante", ing.getNombreRestaurante());
+			obj.put("idRestaurante", ing.getIdRestaurante());
+			
+			json.put(obj);
+			
+		}
+		
+		JSONArray restaurante = new JSONArray();
+		Iterable<Restaurante> restIt= this.restauranteRepository.findAll();
+		Iterator<Restaurante> itRes= restIt.iterator();
+		while(itRes.hasNext()) {
+			Restaurante r = itRes.next();
+			restaurante.put(r.restToJSON());
+		}
+		
+		res.put("restaurantes", restaurante);
+		res.put("ingreso",json);
+		
+		return res.toString();
+		
+	}
+	
+	
+	public String delIngreso(int idIngreso) {
+		
+		JSONObject json = new JSONObject();
+		
+		Optional<Ingreso> i = this.ingresgoRepository.findById(idIngreso);
+		if(i.isPresent()) {
+			this.ingresgoRepository.delete(i.get());
+			json.put("message", "Ingreso eliminado correctamnte");
+		}else {
+			json.put("message","Este ingreso no existe!");
 		}
 		return json.toString();
 	}
+	
+	
+	
+	public String fuentesIngreso() {
+		JSONObject json = new JSONObject();
+		
+		String [] fuentes = Arrays.asList(Fuente.values())
+	            .stream()
+	            .map(f -> f.toString())
+	            .toArray(String[]::new);
+		
+		for(String f : fuentes) {
+			Integer t = this.ingresgoRepository.getTotalIngreso(f);
+			if (t != null) {
+				json.put(f, t);
+			} else {
+				json.put(f, 0);
+			}
+		}
+		return json.toString();
+	}
+	
 
 	
 	

@@ -55,6 +55,7 @@ public class Restaurante {
 	
 	public JSONObject restToJSON() {
 		JSONObject json = new JSONObject();
+		json.put("id",this.id);
 		json.put("nombre", this.nombre);
 		json.put("direccion", this.direccion);
 		json.put("telefono", this.telefono);
@@ -64,5 +65,19 @@ public class Restaurante {
 		
 		
 		return json;
+	}
+	
+	
+	public  JSONObject restauranteToJSON(){
+		JSONObject json = new JSONObject();{
+			json.put("direccion", this.direccion);
+			json.put("telefono", this.telefono);
+			json.put("cif", this.cif);
+			json.put("cp", this.cp);
+			json.put("nombreFiscal", this.nombreFiscal);
+			
+		}
+		return json;
+		
 	}
 }

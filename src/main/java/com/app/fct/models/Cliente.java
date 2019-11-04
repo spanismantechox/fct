@@ -39,7 +39,7 @@ public class Cliente {
 	
 	public JSONObject cliToJSON() {
 		JSONObject json = new JSONObject();
-		
+		json.put("id",this.id);
 		json.put("nombre", this.nombre);
 		json.put("email", this.email);
 		json.put("cif", this.cif);
@@ -49,6 +49,14 @@ public class Cliente {
 		return json;
 	}	
 	
-	
+	public JSONObject clienteTOJSON() {
+		JSONObject json= new JSONObject();
+		json.put("email", this.email);
+		json.put("cif", this.cif);
+		json.put("direccion", this.direccion);
+		json.put("cp", this.cp);
+		
+		return json;
+	}
 	
 }

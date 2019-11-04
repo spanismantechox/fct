@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,10 +30,16 @@ public class RestauranteController {
 		return this.restauranteService.modRestaurante(restaurante);
 	}
 	
-	@GetMapping(path = "/list", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String list() {
 		return this.restauranteService.listRestaurante();
 	}
+	
+	@GetMapping(path="/most/{idRestaurante}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String most(@PathVariable int idRestaurante) {
+		return this.restauranteService.datosRestaurante(idRestaurante);
+	}
+	
 
 	@Autowired
 	private RestauranteService restauranteService;

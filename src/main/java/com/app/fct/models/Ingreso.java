@@ -45,5 +45,7 @@ public class Ingreso {
 		json.put("fecha", this.fecha);		
 		return json;
 	}
+	
+	
 
 }

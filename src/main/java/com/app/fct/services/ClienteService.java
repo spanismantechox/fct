@@ -55,6 +55,20 @@ public class ClienteService {
 		return json.toString();
 	}
 	
+	public String datosCliente(int id) {
+		JSONObject json= new JSONObject();
+		Optional<Cliente> c =this.clienteRepository.findClienteById(id);
+		
+		
+		if(c.isPresent()) {
+			json.put("cliente", c.get().clienteTOJSON());
+		}else {
+			json.put("message","el cliente no existe!");
+		}
+		
+		return json.toString();
+	}
+	
 	
 	@Autowired
 	private ClienteRepository clienteRepository;

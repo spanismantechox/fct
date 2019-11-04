@@ -16,9 +16,10 @@ public class UsuarioService {
 
 	public String altaUsuario(Usuario usuario) {
 		JSONObject json = new JSONObject();
-		Optional<Usuario> u = this.usuarioRepository.findUsuarioByNombre(usuario.getNombre());
+		Optional<Usuario> u = this.usuarioRepository.findUsuarioByNombre(usuario.getNombre().toLowerCase());
 
 		if (!u.isPresent()) {
+			usuario.setNombre(usuario.getNombre().toLowerCase());
 			this.usuarioRepository.save(usuario);
 			json.put("message", "Usuario dado de alta correctamente!");
 			json.put("status:200", "OK");
@@ -31,7 +32,7 @@ public class UsuarioService {
 
 	public String modUsuario(Usuario usuario) {
 		JSONObject json = new JSONObject();
-		Optional<Usuario> u = this.usuarioRepository.findUsuarioByNombre(usuario.getNombre());
+		Optional<Usuario> u = this.usuarioRepository.findUsuarioByNombre(usuario.getNombre().toLowerCase());
 
 		if (u.isPresent()) {
 			this.usuarioRepository.save(usuario);
@@ -47,12 +48,12 @@ public class UsuarioService {
 	public String loginUsuarios(Usuario usuario) {
 		JSONObject json = new JSONObject();
 
-		Optional<Usuario> u = this.usuarioRepository.findById(usuario.getNombre());
+		Optional<Usuario> u = this.usuarioRepository.findById(usuario.getNombre().toLowerCase());
 
 		if (u.isPresent()) {
 			Usuario userBBDD = u.get();
 			if (usuario.getContrasena().equals(userBBDD.getContrasena())) {
-				json.put("message", "OK");
+				json.put("message","Logeado");
 			} else {
 				json.put("message", "Contraseña o nombre incorrectos");
 			}

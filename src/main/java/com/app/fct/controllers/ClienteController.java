@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,10 +31,17 @@ public class ClienteController {
 		return this.clienteService.modCliente(cliente);	
 	}
 	
-	@GetMapping(path = "/list", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/list",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String list() {
 		return this.clienteService.listCliente();	
 	}
+	
+	@GetMapping(path="most/{idCliente}", produces= MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String most(@PathVariable int idCliente) {
+		return this.clienteService.datosCliente(idCliente);
+	}
+	
+	
 	
 	@Autowired
 	private ClienteService clienteService;

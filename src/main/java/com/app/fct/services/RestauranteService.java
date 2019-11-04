@@ -60,6 +60,21 @@ public class RestauranteService {
 	}
 	
 	
+	public String datosRestaurante(int id) {
+		JSONObject json = new JSONObject();
+		Optional<Restaurante> r = this.restauranteRepository.findById(id);
+		
+		if(r.isPresent()) {		
+			json.put("restaurante", r.get().restauranteToJSON());
+		} else {
+			json.put("message", "El restaurante no existe");
+		}
+		
+		return json.toString();
+		
+	}
+	
+	
 	@Autowired
 	private RestauranteRepository restauranteRepository;
 }

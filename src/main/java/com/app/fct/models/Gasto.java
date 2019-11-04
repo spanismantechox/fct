@@ -10,8 +10,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 
 import org.json.JSONObject;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -23,8 +22,7 @@ public class Gasto {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contar_gastos")
 	@SequenceGenerator(name = "contar_gastos", sequenceName = "GASTOS_SEQUENCE")
 	private int idGasto;
-
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date fecha;
 
 	private double cantidad;
@@ -40,6 +38,8 @@ public class Gasto {
 
 		json.put("fecha", this.fecha);
 		json.put("cantidad", this.cantidad);
+		json.put("idRestaurante",this.idRestaurante);
+		json.put("idProveedor",this.idProveedor);
 		return json;
 	}
 

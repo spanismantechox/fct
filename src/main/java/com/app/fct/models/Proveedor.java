@@ -37,7 +37,7 @@ public class Proveedor {
 	
 	public JSONObject provToJSON() {
 		JSONObject json = new JSONObject();
-		
+		json.put("id", this.id);
 		json.put("nombre", this.nombre);
 		json.put("telefono", this.telefono);		
 		return json;
