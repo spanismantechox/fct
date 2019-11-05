@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,10 +46,10 @@ public class IngresoController {
 	}
 	
 	@GetMapping(path = "/fuentes-ingreso", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String fuentesIngreso() {
-		return this.ingresoService.fuentesIngreso();	
+	public @ResponseBody String fuentesIngreso(@RequestParam(value = "periodo") String periodo, @RequestParam(value = "numero" , defaultValue = "0") int numero) {
+		return this.ingresoService.fuentesIngreso(periodo, numero);	
 	}
-
+	
 	@Autowired
 	private IngresoService ingresoService;       
 
