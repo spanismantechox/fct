@@ -27,6 +27,7 @@ public class Usuario {
 		JSONObject json = new JSONObject();
 		json.put("nombre", this.nombre);
 		json.put("rol",this.rol);
+		json.put("contrasena",this.contrasena);
 		
 		
 		return json;

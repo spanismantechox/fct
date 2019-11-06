@@ -33,8 +33,11 @@ public class UsuarioService {
 	public String modUsuario(Usuario usuario) {
 		JSONObject json = new JSONObject();
 		Optional<Usuario> u = this.usuarioRepository.findUsuarioByNombre(usuario.getNombre().toLowerCase());
+		
 
 		if (u.isPresent()) {
+			String pass=usuario.getContrasena();
+			
 			this.usuarioRepository.save(usuario);
 			json.put("message", "Usuario modificado correctamente!");
 			json.put("status:200", "OK");
