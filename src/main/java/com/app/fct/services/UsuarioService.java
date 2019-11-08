@@ -36,7 +36,7 @@ public class UsuarioService {
 		
 
 		if (u.isPresent()) {
-			String pass=usuario.getContrasena();
+			
 			
 			this.usuarioRepository.save(usuario);
 			json.put("message", "Usuario modificado correctamente!");

@@ -25,6 +25,9 @@ public interface IngresoRepository extends CrudRepository<Ingreso, Integer>{
 	@Query(value="SELECT SUM(cantidad) FROM ingreso WHERE DATE_FORMAT(fecha,'%m')=:numero AND fuente=:fuente", nativeQuery=true)
 	public Integer getTotalIngresoMensual(@Param("numero")int numero, @Param("fuente")String fuente);
 	
+	@Query(value="SELECT SUM(cantidad), res.nombre as nombreRestaurante FROM ingreso JOIN restaurante_ingresos r on r.ingresos_id_ingreso = ingreso.id_ingreso JOIN restaurante res on res.id = r.restaurante_id WHERE DATE_FORMAT(fecha,'%m')=:numero AND fuente=:fuente AND res.id=:id",nativeQuery=true)
+	public Integer getTotalIngresoMensualId(@Param("numero")int numero, @Param("fuente")String fuente, @Param("id")int id);
 	
-
+	@Query(value="SELECT SUM(cantidad), res.nombre as nombreRestaurante FROM ingreso JOIN restaurante_ingresos r on r.ingresos_id_ingreso = ingreso.id_ingreso JOIN restaurante res on res.id=r.restaurante_id WHERE DATE_FORMAT(fecha,'%Y')=:numero AND fuente=:fuente AND res.id=:id",nativeQuery=true)
+	public Integer getTotalIngresoAnualId(@Param("numero")int numero, @Param("fuente")String fuente, @Param("id")int id);
 }

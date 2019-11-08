@@ -49,7 +49,10 @@ public class IngresoController {
 	public @ResponseBody String fuentesIngreso(@RequestParam(value = "periodo") String periodo, @RequestParam(value = "numero" , defaultValue = "0") int numero) {
 		return this.ingresoService.fuentesIngreso(periodo, numero);	
 	}
-	
+	@GetMapping(path = "/fuentes-ingreso-id", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String fuentesIngreso(@RequestParam(value = "periodo") String periodo, @RequestParam(value = "numero" , defaultValue = "0") int numero, @RequestParam(value="id")int id) {
+		return this.ingresoService.fuentesIngresoId(periodo, numero,id);	
+	}
 	@Autowired
 	private IngresoService ingresoService;       
 

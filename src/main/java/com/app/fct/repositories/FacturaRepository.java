@@ -16,6 +16,9 @@ public interface FacturaRepository  extends CrudRepository<Factura, String>{
 	
 	public Optional<Factura> findFacturaById(int id);
 
+	/*@Query(value = "select COUNT(fecha) as numeroFacturas from factura where (fecha between DATE_FORMAT(NOW() ,'%Y-%m-01') AND NOW() )")
+	public Integer getAllBetweenDates();*/
+	
 	@Query(value = "from Factura t where fecha BETWEEN :startDate AND :endDate")
 	public List<Factura> getAllBetweenDates(@Param("startDate")Date startDate,@Param("endDate")Date endDate);
 	

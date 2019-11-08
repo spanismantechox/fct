@@ -128,7 +128,8 @@ public class IngresoService {
 					t = this.ingresgoRepository.getTotalIngresoMensual(numero, f);
 					logger.info("Recibo bien el numero"+numero);
 				
-				}else {
+				}
+				else {
 					t = this.ingresgoRepository.getTotalIngreso(f);
 					logger.info("Entro bien al total");
 				}
@@ -141,6 +142,36 @@ public class IngresoService {
 	
 		return json.toString();
 
+	}
+	public String fuentesIngresoId(String periodo,int numero, int id) {
+		JSONObject json = new JSONObject();
+		String[]fuentes=Arrays.asList(Fuente.values()).stream().map(f->f.toString()).toArray(String[]::new);
+		Integer t = null;
+		
+		for (String f: fuentes) {
+			if( periodo.equals("mensual")) {
+				t = this.ingresgoRepository.getTotalIngresoMensualId(numero, f, id);
+				logger.info("recibo bien los datos mensuales "+numero,f,id);
+			}
+			else if(periodo.equals("anual")) {
+				t = this.ingresgoRepository.getTotalIngresoAnualId(numero, f, id);
+				logger.info("recibo bien los datos anuales"+numero,f,id);
+			}
+			else if(periodo.equals("mensual")) {
+				t = this.ingresgoRepository.getTotalIngresoMensualId(numero, f, id);
+				logger.info("recibo bien los datos mensuales"+numero,f,id);
+			}
+			else if(periodo.equals("anual")) {
+				t = this.ingresgoRepository.getTotalIngresoAnualId(numero, f, id);
+				logger.info("recibo bien los datos anuales ",numero+"fuente",f+"id",id);
+			}
+			if (t != null) {
+				json.put(f, t);
+			} else {
+				json.put(f, 0);
+			}
+		}
+		return json.toString();
 	}
 
 	@Autowired
