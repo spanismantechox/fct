@@ -36,7 +36,14 @@ public class RestauranteService {
 		Optional<Restaurante> u = this.restauranteRepository.findById(restaurante.getId());
 		
 		if(u.isPresent()) {
-			this.restauranteRepository.save(restaurante);
+			Restaurante aux = u.get();
+			aux.setCif(restaurante.getCif());
+			aux.setCp(restaurante.getCp());
+			aux.setDireccion(restaurante.getDireccion());
+			aux.setNombre(restaurante.getNombre());
+			aux.setNombreFiscal(restaurante.getNombreFiscal());
+			aux.setTelefono(restaurante.getTelefono());
+			this.restauranteRepository.save(aux);
 			json.put("message", "Restaurante modificado correctamente!");
 			json.put("status:200", "OK");
 		} else {

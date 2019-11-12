@@ -43,6 +43,13 @@ public class FacturaController {
 		return this.facturaService.exportarFactura(id);
 	}
 	
+	@GetMapping(path="/list-month/{mes}",produces=MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody String listaMes(@PathVariable int mes) {
+		return this.facturaService.facturasMesCalendario(mes);
+	}
+	
+	
+	
 
 	@Autowired
 	private FacturaService facturaService;

@@ -34,7 +34,13 @@ public class ClienteService {
 		Optional<Cliente> u = this.clienteRepository.findClienteById(cliente.getId());
 		
 		if(u.isPresent()) {
-			this.clienteRepository.save(cliente);
+			Cliente aux = u.get();
+			aux.setNombre(cliente.getNombre());
+			aux.setDireccion(cliente.getDireccion());
+			aux.setCp(cliente.getCp());
+			aux.setCif(cliente.getCif());
+			aux.setEmail(cliente.getEmail());
+			this.clienteRepository.save(aux);
 			json.put("message", "Cliente modificado correctamente!");
 			json.put("status:200", "OK");
 		} else {

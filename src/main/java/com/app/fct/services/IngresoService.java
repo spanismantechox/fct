@@ -54,7 +54,13 @@ public class IngresoService {
 		Optional<Ingreso> i = this.ingresgoRepository.findById(ingreso.getIdIngreso());
 
 		if (i.isPresent()) {
-			this.ingresgoRepository.save(ingreso);
+			Ingreso aux = i.get();
+			aux.setCantidad(aux.getCantidad());
+			aux.setFecha(ingreso.getFecha());
+			aux.setFuente(ingreso.getFuente());
+			aux.setIdIngreso(ingreso.getIdIngreso());
+			aux.setRestauranteId(ingreso.getRestauranteId());
+			this.ingresgoRepository.save(aux);
 
 			json.put("message", "Ingreso modificado correctamente!");
 			json.put("status:200", "OK");

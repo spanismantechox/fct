@@ -187,11 +187,30 @@ public class FacturaService {
 
 	}
 
-	/*
-	 * public String exportToPdf() {
-	 * 
-	 * }
-	 */
+	public String facturasMesCalendario(int mes) {
+		JSONObject j = new JSONObject();
+		
+		JSONArray json = new JSONArray();
+		List<RelFactura> f = this.facturaRepository.getListaFacturaMes(mes);
+		Iterator<RelFactura> it = f.iterator();
+		JSONObject obj;
+		while (it.hasNext()) {
+			RelFactura fact = it.next();
+			obj = new JSONObject();
+			obj.put("numeroFactura", fact.getNumeroFactura());
+			obj.put("fecha", fact.getFecha());
+			obj.put("concepto", fact.getConcepto());
+			obj.put("nombreRestaurante", fact.getNombreRestaurante());
+			obj.put("nombreCliente", fact.getNombreCliente());
+			obj.put("totalFactura", fact.getTotalFactura());
+			json.put(obj);
+
+		}
+		j.put("factura", json);
+		return j.toString();
+	}
+	
+	
 
 	@Autowired
 	private FacturaRepository facturaRepository;

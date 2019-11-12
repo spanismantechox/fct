@@ -36,7 +36,10 @@ public class ProveedorService {
 		Optional<Proveedor> u = this.proveedorRepository.findProveedorById(proveedor.getId());
 		
 		if(u.isPresent()) {
-			this.proveedorRepository.save(proveedor);
+			Proveedor aux = u.get();
+			aux.setNombre(proveedor.getNombre());
+			aux.setTelefono(proveedor.getTelefono());
+			this.proveedorRepository.save(aux);
 			json.put("message", "Proveedor modificado correctamente!");
 			json.put("status:200", "OK");
 		} else {

@@ -62,7 +62,12 @@ public class GastoService {
 		Optional<Gasto> g = this.gastoRepository.findById(gasto.getIdGasto());
 		
 		if (g.isPresent()) {
-			this.gastoRepository.save(gasto);
+			Gasto aux=g.get();
+			aux.setCantidad(gasto.getCantidad());
+			aux.setFecha(gasto.getFecha());
+			aux.setIdRestaurante(gasto.getIdRestaurante());
+			aux.setIdProveedor(gasto.getIdProveedor());
+			this.gastoRepository.save(aux);
 
 			
 
