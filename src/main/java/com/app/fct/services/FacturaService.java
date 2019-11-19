@@ -172,7 +172,7 @@ public class FacturaService {
 					field.setValue(date);
 					field = pDAcroForm.getField("");
 
-					pDDocument.save("factura"+cf.getNumeroFactura()+".pdf");
+					pDDocument.save("C://Users//luisalberto.cruz//Desktop//pdf//factura"+cf.getNumeroFactura()+".pdf");
 					pDDocument.close();
 					json.put("message", "factura creada con exito!");
 				}
